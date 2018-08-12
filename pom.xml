@@ -7,6 +7,22 @@
   <groupId>com.github.takezoe</groupId>
   <artifactId>jtimewindow</artifactId>
   <version>1.0.0</version>
+  <description>A Java library to parse the time range expressions</description>
+  <inceptionYear>2018</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>takezoe</id>
+      <name>Naoki Takezoe</name>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
