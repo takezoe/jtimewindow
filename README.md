@@ -28,6 +28,8 @@ ZonedDateTime start = w.getStart();
 ZonedDateTime end = w.getEnd();
 ```
 
+## Examples
+
 Here are examples of the relative time range expression when the current time is `2016-06-26 01:23:45-0700`:
 
 |Duration                  |Definition                     |start                     |end (exclusive)           |
