@@ -1,0 +1,13 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Maven specific files
+target
+
+# IntelliJ specific files
+*.iml
+.idea
