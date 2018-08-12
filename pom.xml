@@ -6,9 +6,16 @@
 
   <groupId>com.github.takezoe</groupId>
   <artifactId>jtimewindow</artifactId>
+  <url>https://github.com/takezoe/jtimewindow</url>
   <version>1.0.0</version>
   <description>A Java library to parse the time range expressions</description>
   <inceptionYear>2018</inceptionYear>
+
+  <scm>
+    <connection>scm:git:https://github.com/takezoe/jtimewindow.git</connection>
+    <developerConnection>scm:git:https://github.com/takezoe/jtimewindow.git</developerConnection>
+    <url>https://github.com/takezoe/jtimewindow</url>
+  </scm>
 
   <licenses>
     <license>
