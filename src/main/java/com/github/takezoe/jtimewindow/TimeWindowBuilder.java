@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
  */
 public class TimeWindowBuilder {
 
-    private ZoneOffset zone;
-    private ZonedDateTime currentTime;
+    private final ZoneOffset zone;
+    private final ZonedDateTime currentTime;
 
     public TimeWindowBuilder(ZoneOffset zone){
         this(zone, null);

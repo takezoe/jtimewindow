@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
  */
 public class TimeVector {
 
-    private long x;
-    private long offset;
-    private ChronoUnit unit;
+    private final long duration;
+    private final long offset;
+    private final ChronoUnit unit;
 
-    private TimeVector(long x, long offset, ChronoUnit unit) {
-        this.x = x;
+    private TimeVector(long duration, long offset, ChronoUnit unit) {
+        this.duration = duration;
         this.offset = offset;
         this.unit = unit;
     }
@@ -80,8 +80,8 @@ public class TimeVector {
         }
     }
 
-    public long getX(){
-        return this.x;
+    public long getDuration(){
+        return this.duration;
     }
 
     public long getOffset(){
@@ -96,7 +96,7 @@ public class TimeVector {
         ZonedDateTime grid = TimeWindow.truncateTo(context, unit);
 
         ZonedDateTime startOffset = grid.plus(offset, unit);
-        ZonedDateTime end = startOffset.plus(x, unit);
+        ZonedDateTime end = startOffset.plus(duration, unit);
 
         boolean onGrid = grid.compareTo(context) == 0;
         ZonedDateTime start = null;

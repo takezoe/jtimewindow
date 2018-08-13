@@ -9,8 +9,8 @@ import java.util.*;
  */
 public class TimeWindow {
 
-    private ZonedDateTime start;
-    private ZonedDateTime end;
+    private final ZonedDateTime start;
+    private final ZonedDateTime end;
 
     public TimeWindow(ZonedDateTime start, ZonedDateTime end) {
         this.start = start;
