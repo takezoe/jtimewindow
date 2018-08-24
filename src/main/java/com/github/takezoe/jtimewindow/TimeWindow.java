@@ -146,17 +146,4 @@ public class TimeWindow {
     public static TimeWindowBuilder withSystemTimeZone(){
         return withTimeZone(Constants.SystemTimeZone);
     }
-
-    public static ZonedDateTime truncateTo(ZonedDateTime t, ChronoUnit unit){
-        switch(unit){
-            case SECONDS: return t.truncatedTo(unit);
-            case MINUTES: return t.truncatedTo(unit);
-            case HOURS: return t.truncatedTo(unit);
-            case DAYS: return t.truncatedTo(unit);
-            case WEEKS: return t.truncatedTo(ChronoUnit.DAYS).with(DayOfWeek.MONDAY);
-            case MONTHS: return t.withDayOfMonth(1).truncatedTo(ChronoUnit.DAYS);
-            case YEARS: return t.withDayOfYear(1).truncatedTo(ChronoUnit.DAYS);
-            default: throw new UnsupportedOperationException(unit + " is not supported");
-        }
-    }
 }

@@ -145,7 +145,7 @@ public class TimeWindowBuilder {
             TimeVector duration = TimeVector.of(d);
             String offsetStr = m.group("offset");
             if(offsetStr == null){
-                ZonedDateTime context = TimeWindow.truncateTo(now(), duration.getUnit());
+                ZonedDateTime context = duration.getUnit().truncate(now());
                 return duration.timeWindowFrom(context);
             } else {
                 ZonedDateTime offset = parseOffset(offsetStr);
