@@ -121,11 +121,12 @@ public class TimeWindowBuilder {
         return today().minus(1, ChronoUnit.DAYS);
     }
 
-    private ZonedDateTime parseOffset(String o){
+    private ZonedDateTime parseOffset(String o, TimeWindowUnit windowUnit){
         if(o.equals("now")) {
             return now();
         }
         try {
+            // When the offset string is time duration patterns (e.g., 0M, 0d, etc.)
             TimeVector x = TimeVector.of(o);
             return x.timeWindowFrom(now()).getStart();
         } catch (Exception ex){
@@ -133,7 +134,11 @@ public class TimeWindowBuilder {
             if(d == null){
                 throw new IllegalArgumentException("Invalid offset string: " + o);
             }
-            return d;
+            ZonedDateTime truncated = windowUnit.truncate(d);
+            if(truncated == null){
+                throw new IllegalArgumentException("Invalid offset string: " + o);
+            }
+            return truncated;
         }
     }
 
@@ -148,7 +153,7 @@ public class TimeWindowBuilder {
                 ZonedDateTime context = duration.getUnit().truncate(now());
                 return duration.timeWindowFrom(context);
             } else {
-                ZonedDateTime offset = parseOffset(offsetStr);
+                ZonedDateTime offset = parseOffset(offsetStr, duration.getUnit());
                 return duration.timeWindowFrom(offset);
             }
         } else {
