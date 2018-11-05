@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,34 +123,49 @@ public class TimeWindowBuilder {
         return today().minus(1, ChronoUnit.DAYS);
     }
 
-    private ZonedDateTime parseOffset(String o, TimeWindowUnit windowUnit){
-        if(o.equals("now")) {
-            return now();
-        }
-        try {
-            // When the offset string is time duration patterns (e.g., 0M, 0d, etc.)
-            TimeVector x = TimeVector.of(o);
-            return x.timeWindowFrom(now()).getStart();
-        } catch (Exception ex){
-            boolean truncate = true;
-            if(o.endsWith(")")){
-                o = o.substring(0, o.length() - 1);
-                truncate = false;
+    private ZonedDateTime parseOffset(String o, TimeWindowUnit windowUnit, List<TimeVector> adjustments){
+        Pattern pattern = Pattern.compile("^(?<duration>[^/]+)(?<sep>/(?<offset>.+))");
+        Matcher m = pattern.matcher(o);
+        if(m.find()){
+            adjustments.add(TimeVector.of(m.group("duration")));
+            return parseOffset(m.group("offset"), windowUnit, adjustments);
+        } else {
+            if(o.equals("now")) {
+                return adjustOffset(now(), adjustments);
             }
+            try {
+                // When the offset string is time duration patterns (e.g., 0M, 0d, etc.)
+                TimeVector x = TimeVector.of(o);
+                return x.timeWindowFrom(adjustOffset(now(), adjustments)).getStart();
+            } catch (Exception ex){
+                boolean truncate = true;
+                if(o.endsWith(")")){
+                    o = o.substring(0, o.length() - 1);
+                    truncate = false;
+                }
 
-            ZonedDateTime d = TimeParser.parse(o, zone);
-            if(d == null){
-                throw new IllegalArgumentException("Invalid offset string: " + o);
+                ZonedDateTime d = TimeParser.parse(o, zone);
+                if(d == null){
+                    throw new IllegalArgumentException("Invalid offset string: " + o);
+                }
+                ZonedDateTime adjusted = adjustOffset(d, adjustments);
+                if(!truncate){
+                    return adjusted;
+                }
+                ZonedDateTime truncated = windowUnit.truncate(adjusted);
+                if(truncated == null){
+                    throw new IllegalArgumentException("Invalid offset string: " + o);
+                }
+                return truncated;
             }
-            if(!truncate){
-                return d;
-            }
-            ZonedDateTime truncated = windowUnit.truncate(d);
-            if(truncated == null){
-                throw new IllegalArgumentException("Invalid offset string: " + o);
-            }
-            return truncated;
         }
+    }
+
+    private ZonedDateTime adjustOffset(ZonedDateTime offset, List<TimeVector> adjustments){
+        for(TimeVector duration: adjustments){
+            offset = duration.getUnit().increment(offset, duration.getDuration());
+        }
+        return offset;
     }
 
     public TimeWindow parse(String str){
@@ -162,7 +179,7 @@ public class TimeWindowBuilder {
                 ZonedDateTime context = duration.getUnit().truncate(now());
                 return duration.timeWindowFrom(context);
             } else {
-                ZonedDateTime offset = parseOffset(offsetStr, duration.getUnit());
+                ZonedDateTime offset = parseOffset(offsetStr, duration.getUnit(), new ArrayList<>());
                 return duration.timeWindowFrom(offset);
             }
         } else {
