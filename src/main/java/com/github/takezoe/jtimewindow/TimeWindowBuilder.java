@@ -130,9 +130,18 @@ public class TimeWindowBuilder {
             TimeVector x = TimeVector.of(o);
             return x.timeWindowFrom(now()).getStart();
         } catch (Exception ex){
+            boolean truncate = true;
+            if(o.endsWith(")")){
+                o = o.substring(0, o.length() - 1);
+                truncate = false;
+            }
+
             ZonedDateTime d = TimeParser.parse(o, zone);
             if(d == null){
                 throw new IllegalArgumentException("Invalid offset string: " + o);
+            }
+            if(!truncate){
+                return d;
             }
             ZonedDateTime truncated = windowUnit.truncate(d);
             if(truncated == null){
