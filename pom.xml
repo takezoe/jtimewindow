@@ -8,7 +8,7 @@
   <artifactId>jtimewindow</artifactId>
   <name>jtimewindow</name>
   <url>https://github.com/takezoe/jtimewindow</url>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.0</version>
   <description>A Java library to parse the time range expressions</description>
   <inceptionYear>2018</inceptionYear>
 
