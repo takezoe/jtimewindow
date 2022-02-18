@@ -11,7 +11,7 @@ Add a following dependency to your `pom.xml`:
   <dependency>
     <groupId>com.github.takezoe</groupId>
     <artifactId>jtimewindow</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
   </dependency>
 </dependencies>
 ```
