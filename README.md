@@ -1,4 +1,4 @@
-# JTimeWindow [![Build Status](https://travis-ci.org/takezoe/jtimewindow.svg?branch=master)](https://travis-ci.org/takezoe/jtimewindow) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.takezoe/jtimewindow/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.takezoe/jtimewindow) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/takezoe/jtimewindow/blob/master/LICENSE)
+# JTimeWindow [![Build](https://github.com/takezoe/jtimewindow/actions/workflows/maven.yml/badge.svg)](https://github.com/takezoe/jtimewindow/actions/workflows/maven.yml) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.takezoe/jtimewindow/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.takezoe/jtimewindow) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/takezoe/jtimewindow/blob/master/LICENSE)
 
 A Java library to parse time range expressions, port of [airframe-metrics](https://github.com/wvlet/airframe/tree/master/airframe-metrics).
 
