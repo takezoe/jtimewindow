@@ -136,7 +136,11 @@ public class TimeWindowBuilder {
             try {
                 // When the offset string is time duration patterns (e.g., 0M, 0d, etc.)
                 TimeVector x = TimeVector.of(o);
-                return x.timeWindowFrom(adjustOffset(now(), adjustments)).getStart();
+                if (x.getDuration() <= 0) {
+                    return x.timeWindowFrom(adjustOffset(now(), adjustments)).getStart();
+                } else {
+                    return x.timeWindowFrom(adjustOffset(now(), adjustments)).getEnd();
+                }
             } catch (Exception ex){
                 boolean truncate = true;
                 if(o.endsWith(")")){
